@@ -25,4 +25,11 @@ const routes = [
     mode:'history'
 })
 
+router.beforeEach((to,from,next) => {
+    console.log(to)
+    if(to.path === '/login') return next()
+    const token = window.sessionStorage.getItem('token')
+    if(!token) return next('/login') //强制跳转
+    next();
+})
 export default router;

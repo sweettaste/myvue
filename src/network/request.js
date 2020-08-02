@@ -7,6 +7,12 @@ export default function request( config ){
     timeout:7000
   })
   //请求拦截
+  instance.interceptors.request.use(config => {
+    if(window.sessionStorage.getItem('token')){
+      config.headers.Authorization = window.sessionStorage.getItem('token')
+    }
+    return config
+  })
   //法送请求
   return instance(config)
 }
